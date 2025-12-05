@@ -1,0 +1,46 @@
+﻿<Window x:Class="Example.Views.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Example.Views"
+        mc:Ignorable="d"
+        Title="Админ" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок и навигация -->
+        <Border Grid.Row="0" Background="#2196F3" Padding="10">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock x:Name="WelcomeText" 
+                          Foreground="White" 
+                          FontSize="18" 
+                          FontWeight="Bold"
+                          VerticalAlignment="Center"/>
+                <Separator Width="20" Opacity="0"/>
+                <Button x:Name="NewsButton" 
+                       Content="Новости" 
+                       Margin="10,0" 
+                       Padding="15,5"
+                       Background="White"
+                       Foreground="#2196F3"
+                       Click="NewsButton_Click"/>
+                <Button x:Name="UsersButton" 
+                       Content="Пользователи" 
+                       Margin="10,0" 
+                       Padding="15,5"
+                       Background="White"
+                       Foreground="#2196F3"
+                       Click="UsersButton_Click"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Фрейм для страниц -->
+        <Frame x:Name="MainFrame" 
+               Grid.Row="1" 
+               NavigationUIVisibility="Hidden"/>
+    </Grid>
+</Window>

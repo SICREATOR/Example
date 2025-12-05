@@ -1,0 +1,66 @@
+﻿<Window x:Class="Example.Views.UserEditDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Example.Views"
+        mc:Ignorable="d"
+        Title="UserEditDialog" Height="450" Width="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Фамилия:" Grid.Row="0" Margin="0,0,0,5"/>
+        <TextBox x:Name="SurnameTextBox" Grid.Row="1" Height="25" Margin="0,0,0,10"/>
+
+        <TextBlock Text="Имя:" Grid.Row="2" Margin="0,0,0,5"/>
+        <TextBox x:Name="NameTextBox" Grid.Row="3" Height="25" Margin="0,0,0,10"/>
+
+        <TextBlock Text="Отчество:" Grid.Row="4" Margin="0,0,0,5"/>
+        <TextBox x:Name="PatronymicTextBox" Grid.Row="5" Height="25" Margin="0,0,0,10"/>
+
+        <TextBlock Text="Роль:" Grid.Row="6" Margin="0,0,0,5"/>
+        <ComboBox x:Name="RoleComboBox" 
+                 Grid.Row="7" 
+                 Height="25" 
+                 Margin="0,0,0,10">
+            <ComboBoxItem Content="user"/>
+            <ComboBoxItem Content="admin"/>
+            <ComboBoxItem Content="editor"/>
+        </ComboBox>
+
+        <TextBlock Text="Логин:" Grid.Row="8" Margin="0,0,0,5"/>
+        <TextBox x:Name="LoginTextBox" Grid.Row="9" Height="25" Margin="0,0,0,10"/>
+
+        <TextBlock Text="Пароль:" Grid.Row="10" Margin="0,0,0,5"/>
+        <PasswordBox x:Name="PasswordBox" Grid.Row="11" Height="25" Margin="0,0,0,20"/>
+
+        <StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="SaveButton" 
+                   Content="Сохранить" 
+                   Width="100" 
+                   Height="30"
+                   Margin="5"
+                   Click="SaveButton_Click"/>
+            <Button x:Name="CancelButton" 
+                   Content="Отмена" 
+                   Width="100" 
+                   Height="30"
+                   Margin="5"
+                   Click="CancelButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
