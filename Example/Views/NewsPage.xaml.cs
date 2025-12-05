@@ -1,18 +1,7 @@
 ﻿using Example.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace Example.Views
 {
@@ -49,14 +38,32 @@ namespace Example.Views
 
         private void EditNews_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            var news = button?.DataContext as News;
+            // Получаем кнопку, которая вызвала событие
+            // При нажатии на кнопку
+            // WPF вызывает EditNews_Click(sender, e), где sender - эта самая кнопка
+            // sender as Button преобразует объект sender в тип Button
+            // as оператор безопасного приведения типов
+            Button? button = sender as Button;
 
+            if (sender.GetType() == typeof(Button))
+            {
+                Button a = (Button)sender;
+            } 
+
+            // Получаем объект News, привязанный к этой строке DataGrid
+            // Если sender не Button, вернет null
+            News? news = button?.DataContext as News;
+
+            // Если news не null - объект успешно получен
             if (news != null)
             {
-                var dialog = new NewsEditDialog(news);
+                // Открываем диалог редактирования с передачей news
+                NewsEditDialog dialog = new NewsEditDialog(news);
+
+                // Если диалог завершился успешно (OK)
                 if (dialog.ShowDialog() == true)
                 {
+                    // Обновляем список новостей
                     LoadNews();
                 }
             }
