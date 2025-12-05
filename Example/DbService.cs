@@ -6,41 +6,56 @@ namespace Example
 {
     internal class DbService
     {
+        // Строка подключения к базе данных MySQL
+        // Содержит все параметры: сервер (у вас такой же), БД (tompsons_studN - N номер по журналу - 01, 04, 13...), логин (как имя БД), пароль (ваш) и кодировку
         public static string connectionString = "server=tompsons.beget.tech;user=tompsons_example;database=tompsons_example;password=78919913Zero;CharSet=utf8mb4;";
 
+        // Метод для создания и открытия подключения к БД
         public static MySqlConnection GetConnection()
         {
+            // Новый объект подключения с использованием строки подключения
             MySqlConnection connection = new MySqlConnection(connectionString);
+            // Открываем соединение с базой данных
             connection.Open();
-
+            // Возвращаем готовое подключение
             return connection;
         }
 
+        // Универсальный метод для выполнения SQL-запросов, которые НЕ возвращают данные
+        // (INSERT, UPDATE, DELETE) с использованием параметров для безопасности
         public static int ExecuteNonQueryWithParameters(string query, Dictionary<string, object> parameters)
         {
+            // Количество затронутых строк
             int rowsAffected = 0;
+            // using обеспечивает автоматическое закрытие соединения и команды
             using (MySqlConnection connection = GetConnection())
             using (MySqlCommand command = new MySqlCommand(query, connection))
             {
+                // Добавляем параметры в команду для защиты от SQL-инъекций
                 foreach (var parameter in parameters)
                 {
                     command.Parameters.AddWithValue(parameter.Key, parameter.Value);
                 }
+                // Выполняем запрос и получаем количество обработанных строк
                 rowsAffected = command.ExecuteNonQuery();
             }
             return rowsAffected;
         }
 
+        // Универсальный метод для получения данных с возможностью преобразования
         public static List<T> GetData<T>(string query, Func<MySqlDataReader, T> mapFunction)
         {
+            // Список для хранения результата
             List<T> data = new List<T>();
             using (MySqlConnection connection = GetConnection())
             {
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
+                    // Читаем построчно, пока есть данные
                     while (reader.Read())
                     {
+                        // Преобразуем текущую строку в объект типа T с помощью переданной функции
                         data.Add(mapFunction(reader));
                     }
                 }
@@ -48,6 +63,8 @@ namespace Example
             return data;
         }
 
+        // Метод для выполнения скалярных запросов (возвращающих одно значение)
+        // Например: SELECT COUNT(*) FROM table
         public static object ExecuteScalar(string query, Dictionary<string, object> parameters)
         {
             object result = null;
@@ -63,6 +80,7 @@ namespace Example
             return result;
         }
 
+        // Метод для аутентификации пользователя по логину и паролю
         public static User AuthenticateUser(string login, string password)
         {
             try
@@ -101,6 +119,7 @@ namespace Example
             return null;
         }
 
+        // Метод для регистрации нового пользователя
         public static bool RegisterUser(User newUser)
         {
             try
@@ -144,9 +163,12 @@ namespace Example
             }
         }
 
+        // Метод для получения всех пользователей из БД
         public static List<User> GetAllUsers()
         {
             string query = "SELECT * FROM users ORDER BY id";
+
+            // Используем универсальный метод GetData с лямбда-выражением для создания объектов User
             return GetData(query, reader => new User
             {
                 Id = reader.GetInt32("id"),
@@ -159,6 +181,7 @@ namespace Example
             });
         }
 
+        // Метод для обновления данных пользователя
         public static bool UpdateUser(User user)
         {
             try
@@ -193,6 +216,7 @@ namespace Example
             }
         }
 
+        // Метод для удаления пользователя по ID
         public static bool DeleteUser(int userId)
         {
             try

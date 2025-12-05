@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Example.Models
 {
+    // Модель данных News, все поля это наши столбцы из БД
     public class News
     {
         public int Id { get; set; }
