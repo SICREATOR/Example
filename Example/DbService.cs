@@ -171,7 +171,7 @@ namespace Example
             // Используем универсальный метод GetData с лямбда-выражением для создания объектов User
             return GetData(query, reader => new User
             {
-                Id = reader.GetInt32("id"),
+                Id = reader.GetInt32("Id"),
                 Surname = reader.GetString("surname"),
                 Name = reader.GetString("name"),
                 Patronymic = reader.GetString("patronymic"),
